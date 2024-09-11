@@ -9,8 +9,9 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'botmate.dev',
-  description: 'Plugin based, open-source bot management platform',
+  title: 'BotMate - Simplify Your Bot Management',
+  description:
+    'BotMate lets you manage multiple bots across different platforms from one simple dashboard. Customize with plugins, add widgets, and easily control settings—all in one place.',
 };
 
 export default function RootLayout({
