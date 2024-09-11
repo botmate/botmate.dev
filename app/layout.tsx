@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from 'next-themes';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 const poppins = Poppins({
   weight: ['400', '500', '600', '700'],
@@ -26,6 +27,8 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
       </body>
+
+      <GoogleAnalytics gaId="G-DJXG7YFBKQ" />
     </html>
   );
 }
