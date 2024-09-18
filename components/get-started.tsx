@@ -12,8 +12,8 @@ function GetStarted() {
             Get started
           </h1>
           <p className="text-muted-foreground/70 mt-2 max-w-xl">
-            It's easy to get started with BotMate. Follow these simple steps to
-            start managing your bots.
+            It&apos;s easy to get started with BotMate. Follow these simple
+            steps to start managing your bots.
           </p>
         </div>
 
@@ -23,8 +23,8 @@ function GetStarted() {
             <div>
               <h1 className="text-2xl font-bold mt-4">Self-hosted</h1>
               <p className="text-muted-foreground mt-2">
-                Click the button below to self-host BotMate on your server. It's
-                just a few steps away!
+                Click the button below to self-host BotMate on your server.
+                It&apos;s just a few steps away!
               </p>
             </div>
             <div>
