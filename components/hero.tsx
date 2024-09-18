@@ -36,10 +36,13 @@ const Gradient = () => (
       initial={{ opacity: 0, y: 10 }}
       transition={{ duration: 0.5, delay: 0.7 }}
       animate={{ opacity: 0.5, y: 0 }}
-      className="-z-10 absolute h-96 w-96 bg-gradient-to-br from-primary to-secondary rounded-full bottom-20 lg:top-24 right-24 lg:left-24 blur-3xl"
+      className="-z-10 absolute h-96 w-96 bg-gradient-to-br from-primary to-secondary rounded-full top-24 right-24 lg:left-24 blur-3xl"
     />
   </>
 );
+
+const heading = `the ultimate bot platform`;
+const description = `BotMate lets you manage multiple bots across different platforms from one simple dashboard. Customize with plugins, add widgets, and easily control settings—all in one place.`;
 
 function Hero() {
   const [copied, setCopied] = React.useState(false);
@@ -52,10 +55,10 @@ function Hero() {
     }
   }, [copied]);
   return (
-    <div className="h-[100dvh] relative py-12 lg:py-24 overflow-hidden">
+    <div className="h-screen flex flex-col justify-center relative py-12 lg:py-24 overflow-hidden">
       <Gradient />
 
-      <div className="max-w-7xl mx-auto px-4 lg:px-0 flex flex-col gap-20">
+      <div className="container flex flex-col gap-20">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -108,7 +111,7 @@ function Hero() {
               visible: { opacity: 1, y: 10 },
               hidden: { opacity: 0, y: 0 },
             }}
-            className="text-center text-white text-md lg:text-xl font-medium mt-5 max-w-[20rem] lg:max-w-3xl mx-auto"
+            className="text-center text-white text-md lg:text-xl font-medium max-w-[20rem] lg:max-w-3xl mx-auto"
           >
             BotMate lets you manage multiple bots across different platforms
             from one simple dashboard. Customize with plugins, add widgets, and
@@ -127,7 +130,7 @@ function Hero() {
             }}
             className="flex justify-center"
           >
-            <div className="flex items-center gap-4 p-4 rounded-xl border bg-gradient-to-br from-background to-background/50 hover:border-primary transition-colors duration-200">
+            <div className="flex items-center gap-4 p-4 rounded-xl border-2 border-primary bg-gradient-to-br from-background to-background/50 hover:border-primary transition-colors duration-200">
               <LuTerminal strokeWidth={2} />
               <span className="select-none">pnpm create botmate</span>
               <Tooltip delayDuration={100}>
