@@ -58,7 +58,7 @@ function Hero() {
     <div className="h-screen flex flex-col justify-center relative py-12 lg:py-24 overflow-hidden">
       <Gradient />
 
-      <div className="container flex flex-col gap-20">
+      <div className="container flex flex-col gap-12">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -117,6 +117,28 @@ function Hero() {
             from one simple dashboard. Customize with plugins, add widgets, and
             easily control settings—all in one place.
           </motion.p>
+        </div>
+        <div className="flex justify-center">
+          <motion.a
+            href="https://www.producthunt.com/posts/botmate-simplify-your-bot-management?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-botmate&#0045;simplify&#0045;your&#0045;bot&#0045;management"
+            target="_blank"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 1.1 }}
+            variants={{
+              visible: { opacity: 1, scale: 1 },
+              hidden: { opacity: 0, scale: 0.9 },
+            }}
+          >
+            <img
+              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=491045&theme=dark"
+              alt="BotMate&#0032;&#0045;&#0032;Simplify&#0032;Your&#0032;Bot&#0032;Management - Manage&#0032;all&#0032;your&#0032;bots&#0032;from&#0032;one&#0032;place&#0032;with&#0032;powerful&#0032;plugins&#0046; | Product Hunt"
+              style={{ width: '250px', height: '54px' }}
+              width="250"
+              height="54"
+            />
+          </motion.a>
         </div>
         <TooltipProvider>
           <motion.div

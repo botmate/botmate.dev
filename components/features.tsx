@@ -90,6 +90,7 @@ const GlowingFeatureCard = ({
       }}
       initial="hidden"
       whileInView="visible"
+      viewport={{ once: true }}
       transition={{ delay: 0.1 * index }}
     >
       <div className="flex flex-col gap-4">
