@@ -11,6 +11,8 @@ import {
   TooltipTrigger,
 } from '#/components/ui/tooltip';
 import { FaTelegramPlane } from 'react-icons/fa';
+import { StarIcon } from 'lucide-react';
+import { Button } from './ui/button';
 
 const info = [
   {
@@ -41,7 +43,7 @@ const Gradient = () => (
   </>
 );
 
-const heading = `the ultimate bot platform`;
+const heading = `The ultimate bot platform for everyone.`;
 const description = `BotMate lets you manage multiple bots across different platforms from one simple dashboard. Customize with plugins, add widgets, and easily control settings—all in one place.`;
 
 function Hero() {
@@ -54,6 +56,83 @@ function Hero() {
       return () => clearTimeout(timeout);
     }
   }, [copied]);
+
+  return (
+    <div className="h-screen  flex items-center py-20 relative">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        transition={{ duration: 0.5, delay: 1.2 }}
+        animate={{ opacity: 0.25, y: 0 }}
+        className="absolute top-12 left-0 w-[30rem] aspect-square bg-gradient-to-br from-primary to-primary/10 rounded-full blur-3xl"
+      />
+
+      <div className="container">
+        <div className="flex">
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5, delay: 1.2 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="rounded-xl items-center gap-2 p-2 backdrop-blur-md bg-black/30"
+          >
+            <a href="https://github.com/botmate/botmate" target="_blank">
+              <div className="text-xs bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
+                Give us star on GitHub
+              </div>
+            </a>
+          </motion.div>
+        </div>
+
+        <div className="space-y-10 mt-6">
+          <h1 className="text-6xl font-semibold text-white max-w-3xl">
+            {heading.split(' ').map((word, index) => (
+              <motion.span
+                key={index}
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  visible: { opacity: 1, y: 0, filter: 'blur(0px)' },
+                  hidden: { opacity: 0, y: 10, filter: 'blur(10px)' },
+                }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+              >
+                {word === 'ultimate' ? (
+                  <span className="font-bold text-primary">{word}</span>
+                ) : (
+                  word
+                )}{' '}
+              </motion.span>
+            ))}
+          </h1>
+
+          <p className="text-xl text-white max-w-3xl">
+            {description.split(' ').map((word, index) => (
+              <motion.span
+                key={index}
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  visible: { opacity: 1, y: 0, x: 0, filter: 'blur(0px)' },
+                  hidden: { opacity: 0, y: 20, x: -10, filter: 'blur(10px)' },
+                }}
+                transition={{ duration: 0.2, delay: index * 0.08 }}
+              >
+                {word}{' '}
+              </motion.span>
+            ))}
+          </p>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          transition={{ duration: 0.5, delay: 2 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-12"
+        >
+          <Button>Get started</Button>
+        </motion.div>
+      </div>
+    </div>
+  );
   return (
     <div className="h-screen flex flex-col justify-center relative py-12 lg:py-24 overflow-hidden">
       <Gradient />
