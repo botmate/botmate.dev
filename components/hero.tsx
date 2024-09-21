@@ -13,6 +13,7 @@ import {
 import { FaTelegramPlane } from 'react-icons/fa';
 import { StarIcon } from 'lucide-react';
 import { Button } from './ui/button';
+import Link from 'next/link';
 
 const info = [
   {
@@ -128,7 +129,9 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           className="mt-12"
         >
-          <Button>Get started</Button>
+          <Link href="https://docs.botmate.dev" target="_blank">
+            <Button>Get started</Button>
+          </Link>
         </motion.div>
       </div>
     </div>
