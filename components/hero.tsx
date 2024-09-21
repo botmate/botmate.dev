@@ -84,7 +84,7 @@ function Hero() {
         </div>
 
         <div className="space-y-10 mt-6">
-          <h1 className="text-6xl font-semibold text-white max-w-3xl">
+          <h1 className="text-4xl md:text-6xl font-semibold text-white max-w-3xl">
             {heading.split(' ').map((word, index) => (
               <motion.span
                 key={index}
@@ -105,7 +105,7 @@ function Hero() {
             ))}
           </h1>
 
-          <p className="text-xl text-white max-w-3xl">
+          <p className="md:text-xl text-white max-w-3xl">
             {description.split(' ').map((word, index) => (
               <motion.span
                 key={index}
