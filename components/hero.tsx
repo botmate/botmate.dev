@@ -59,19 +59,21 @@ function Hero() {
   }, [copied]);
 
   return (
-    <div className="h-screen  flex items-center py-20 relative">
-      <motion.div
+    <div className="h-screen flex items-center py-20 relative">
+      {/* <motion.div
         initial={{ opacity: 0, y: 10 }}
-        transition={{ duration: 0.5, delay: 1.2 }}
-        animate={{ opacity: 0.25, y: 0 }}
-        className="absolute top-12 left-0 w-[30rem] aspect-square bg-gradient-to-br from-primary to-primary/10 rounded-full blur-3xl"
-      />
+        transition={{ duration: 0.5, delay: 1.4 }}
+        animate={{ opacity: 0.3, y: 0 }}
+        className="absolute -top-[65rem] left-0 right-0 w-[80rem] mx-auto aspect-square bg-gradient-to-br from-primary to-primary rounded-full blur-3xl transform"
+      /> */}
 
-      <div className="container">
-        <div className="flex">
+      <div className="absolute z-0 inset-0 h-full w-full bg-[radial-gradient(#1f1f1ff1_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)]"></div>
+
+      <div className="container z-10">
+        <div className="flex justify-center">
           <motion.div
             initial={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.5, delay: 1.2 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
             animate={{ opacity: 1, y: 0 }}
             className="rounded-xl items-center gap-2 p-2 backdrop-blur-md bg-black/30"
           >
@@ -83,8 +85,8 @@ function Hero() {
           </motion.div>
         </div>
 
-        <div className="space-y-10 mt-6">
-          <h1 className="text-4xl md:text-6xl font-semibold text-white max-w-3xl">
+        <div className="mt-6 text-center">
+          <h1 className="mx-auto text-4xl md:text-7xl font-semibold text-white max-w-4xl">
             {heading.split(' ').map((word, index) => (
               <motion.span
                 key={index}
@@ -97,7 +99,9 @@ function Hero() {
                 transition={{ duration: 0.4, delay: index * 0.1 }}
               >
                 {word === 'ultimate' ? (
-                  <span className="font-bold text-primary">{word}</span>
+                  <span className="font-bold text-transparent bg-gradient-to-r from-primary to-blue-400 bg-clip-text">
+                    {word}
+                  </span>
                 ) : (
                   word
                 )}{' '}
@@ -105,7 +109,7 @@ function Hero() {
             ))}
           </h1>
 
-          <p className="md:text-xl text-white max-w-3xl">
+          <p className="mt-10 mx-auto text-sm md:text-xl text-white max-w-2xl">
             {description.split(' ').map((word, index) => (
               <motion.span
                 key={index}
@@ -123,16 +127,46 @@ function Hero() {
           </p>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          transition={{ duration: 0.5, delay: 2 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mt-12"
-        >
-          <Link href="https://docs.botmate.dev" target="_blank">
-            <Button>Get started</Button>
-          </Link>
-        </motion.div>
+        <div className="mt-14">
+          <TooltipProvider>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 1.4 }}
+              variants={{
+                visible: { opacity: 1, y: 0 },
+                hidden: { opacity: 0, y: -10 },
+              }}
+              className="flex justify-center"
+            >
+              <div className="flex items-center gap-4 p-4 rounded-xl border-2 border-primary bg-gradient-to-br from-background to-background/50 hover:border-primary transition-colors duration-200">
+                <LuTerminal strokeWidth={2} />
+                <span className="select-none text-sm lg:text-md">
+                  pnpm create botmate
+                </span>
+                <Tooltip delayDuration={100}>
+                  <TooltipTrigger>
+                    {copied ? (
+                      <LuCheck />
+                    ) : (
+                      <LuCopy
+                        className="cursor-pointer"
+                        onClick={() => {
+                          navigator.clipboard.writeText('pnpm create botmate');
+                          setCopied(true);
+                        }}
+                      />
+                    )}
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Copy to clipboard</p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+            </motion.div>
+          </TooltipProvider>
+        </div>
       </div>
     </div>
   );
@@ -222,42 +256,6 @@ function Hero() {
             />
           </motion.a>
         </div>
-        <TooltipProvider>
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 1 }}
-            variants={{
-              visible: { opacity: 1, y: -10 },
-              hidden: { opacity: 0, y: 0 },
-            }}
-            className="flex justify-center"
-          >
-            <div className="flex items-center gap-4 p-4 rounded-xl border-2 border-primary bg-gradient-to-br from-background to-background/50 hover:border-primary transition-colors duration-200">
-              <LuTerminal strokeWidth={2} />
-              <span className="select-none">pnpm create botmate</span>
-              <Tooltip delayDuration={100}>
-                <TooltipTrigger>
-                  {copied ? (
-                    <LuCheck />
-                  ) : (
-                    <LuCopy
-                      className="cursor-pointer"
-                      onClick={() => {
-                        navigator.clipboard.writeText('pnpm create botmate');
-                        setCopied(true);
-                      }}
-                    />
-                  )}
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Copy to clipboard</p>
-                </TooltipContent>
-              </Tooltip>
-            </div>
-          </motion.div>
-        </TooltipProvider>
       </div>
 
       <div className="hidden lg:block">
