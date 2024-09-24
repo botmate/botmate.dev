@@ -47,6 +47,14 @@ const Gradient = () => (
 const heading = `The ultimate bot platform for everyone.`;
 const description = `BotMate lets you manage multiple bots across different platforms from one simple dashboard. Customize with plugins, add widgets, and easily control settings—all in one place.`;
 
+const wordList = [
+  'powerful',
+  'flexible',
+  'customizable',
+  'intuitive',
+  'awesome',
+];
+
 function Hero() {
   const [copied, setCopied] = React.useState(false);
   useEffect(() => {
@@ -58,16 +66,18 @@ function Hero() {
     }
   }, [copied]);
 
-  return (
-    <div className="h-screen flex items-center py-20 relative">
-      {/* <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        transition={{ duration: 0.5, delay: 1.4 }}
-        animate={{ opacity: 0.3, y: 0 }}
-        className="absolute -top-[65rem] left-0 right-0 w-[80rem] mx-auto aspect-square bg-gradient-to-br from-primary to-primary rounded-full blur-3xl transform"
-      /> */}
+  const [wordIndex, setWordIndex] = React.useState(0);
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      const newIndex = (wordIndex + 1) % wordList.length;
+      setWordIndex(newIndex);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [wordIndex]);
 
-      <div className="absolute z-0 inset-0 h-full w-full bg-[radial-gradient(#1f1f1ff1_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)]"></div>
+  return (
+    <div className="pt-40 xl:pt-56 pb-20 relative">
+      <div className="absolute z-0 inset-0 h-full w-full bg-[radial-gradient(#3c3c3cef_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)]"></div>
 
       <div className="container z-10">
         <div className="flex justify-center">
@@ -75,10 +85,10 @@ function Hero() {
             initial={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.5, delay: 0.7 }}
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-xl items-center gap-2 p-2 backdrop-blur-md bg-black/30"
+            className="rounded-xl items-center gap-2 p-2 backdrop-blur-md bg-black/30 bg-gradient-to-r from-primary/20 to-orange-300/10"
           >
             <a href="https://github.com/botmate/botmate" target="_blank">
-              <div className="text-xs bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
+              <div className="text-xs bg-gradient-to-r from-primary to-red-500 bg-clip-text text-transparent">
                 Give us star on GitHub
               </div>
             </a>
@@ -109,7 +119,7 @@ function Hero() {
             ))}
           </h1>
 
-          <p className="mt-10 mx-auto text-sm md:text-xl text-white max-w-2xl">
+          <p className="mt-10 mx-auto md:text-xl text-white max-w-2xl">
             {description.split(' ').map((word, index) => (
               <motion.span
                 key={index}
@@ -140,30 +150,43 @@ function Hero() {
               }}
               className="flex justify-center"
             >
-              <div className="flex items-center gap-4 p-4 rounded-xl border-2 border-primary bg-gradient-to-br from-background to-background/50 hover:border-primary transition-colors duration-200">
-                <LuTerminal strokeWidth={2} />
-                <span className="select-none text-sm lg:text-md">
-                  pnpm create botmate
-                </span>
-                <Tooltip delayDuration={100}>
-                  <TooltipTrigger>
-                    {copied ? (
-                      <LuCheck />
-                    ) : (
-                      <LuCopy
-                        className="cursor-pointer"
-                        onClick={() => {
-                          navigator.clipboard.writeText('pnpm create botmate');
-                          setCopied(true);
-                        }}
-                      />
-                    )}
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Copy to clipboard</p>
-                  </TooltipContent>
-                </Tooltip>
+              <div className="z-20 animate-border inline-block rounded-xl bg-gray-900 from-primary via-indigo-500 to-red-500 bg-[length:_400%_400%] p-[2px] [animation-duration:_6s] bg-gradient-to-r">
+                <div className="flex rounded-xl items-center gap-4 bg-black p-4">
+                  <LuTerminal strokeWidth={2} />
+                  <span className="select-none text-sm lg:text-md">
+                    pnpm create botmate
+                  </span>
+                  <Tooltip delayDuration={100}>
+                    <TooltipTrigger>
+                      {copied ? (
+                        <LuCheck />
+                      ) : (
+                        <LuCopy
+                          className="cursor-pointer"
+                          onClick={() => {
+                            navigator.clipboard.writeText(
+                              'pnpm create botmate',
+                            );
+                            setCopied(true);
+                          }}
+                        />
+                      )}
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Copy to clipboard</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
               </div>
+
+              {/* <a
+                href="#"
+                className=""
+              >
+                <span className="block rounded-md bg-white px-5 py-3 text-sm font-medium text-gray-900">
+                  Get Started
+                </span>
+              </a> */}
             </motion.div>
           </TooltipProvider>
         </div>

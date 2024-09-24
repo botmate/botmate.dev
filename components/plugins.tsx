@@ -3,23 +3,23 @@
 import {
   BlocksIcon,
   ExternalLinkIcon,
-  GlobeIcon,
-  ShieldIcon,
+  FlameIcon,
+  InfoIcon,
 } from 'lucide-react';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const items = [
   {
     title: 'Learn more',
     description: 'Learn more about plugins and how to install them.',
-    icon: ShieldIcon,
+    icon: InfoIcon,
     link: 'https://docs.botmate.dev/plugins/introduction',
   },
   {
     title: 'Explore',
     description: 'Explore the plugins built by the community.',
-    icon: GlobeIcon,
+    icon: FlameIcon,
     link: 'https://market.botmate.dev/explore',
   },
   {
@@ -32,12 +32,26 @@ const items = [
 
 function Plugins() {
   return (
-    <div className="">
+    <div className="relative xl:h-screen flex items-center">
+      <div className="absolute inset-0 flex items-center justify-start">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          variants={{
+            visible: { opacity: 0.5, y: 10 },
+            hidden: { opacity: 0, y: 0 },
+          }}
+          className="w-[35rem] h-96 bg-gradient-to-br from-red-500/30 to-primary-500/50 rounded-full blur-3xl"
+        />
+      </div>
       <div className="container py-12 space-y-20 relative">
         <div className="flex flex-col lg:flex-row lg:items-center gap-4">
           <div className="flex-1">
             <h1 className="text-4xl lg:text-5xl font-semibold mt-4 lg:leading-snug">
-              Plugins. <br /> Extend your bot.
+              <span className="text-red-400">Plugins.</span> <br /> Extend your
+              bot.
             </h1>
           </div>
           <div className="flex-1">
@@ -51,30 +65,7 @@ function Plugins() {
 
         <div className="grid lg:grid-cols-3 gap-4">
           {items.map((plugin, index) => (
-            <div
-              className="relative bg-card group lg:bg-gradient-to-t from-card to-transparent hover:to-neutral-900 rounded-xl px-8 py-8 flex flex-col gap-8"
-              key={index}
-            >
-              <div>
-                <plugin.icon size={100} />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold">{plugin.title}</h3>
-                <p className="mt-1 text-muted-foreground/70">
-                  {plugin.description}
-                </p>
-              </div>
-
-              <motion.div className="lg:absolute lg:hidden group-hover:block backdrop-blur-lg bottom-0 left-0 right-0 lg:p-4">
-                <a
-                  href={plugin.link}
-                  className="flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground/100"
-                  target="_blank"
-                >
-                  Learn more <ExternalLinkIcon size={16} />
-                </a>
-              </motion.div>
-            </div>
+            <Card key={index} plugin={plugin} />
           ))}
         </div>
       </div>
@@ -83,3 +74,61 @@ function Plugins() {
 }
 
 export default Plugins;
+
+function Card({ plugin }: { plugin: (typeof items)[0] }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const cardRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!cardRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      setMousePosition({ x, y });
+
+      const isNear =
+        x >= -50 && x <= rect.width + 50 && y >= -50 && y <= rect.height + 50;
+      setIsHovered(isNear);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
+  return (
+    <div
+      className="relative z-20 bg-gradient-to-t from-white/5 to-primary/5 backdrop-blur-md rounded-xl px-8 py-8 flex flex-col gap-8"
+      ref={cardRef}
+    >
+      <div className="text-red-400">
+        <plugin.icon size={100} />
+      </div>
+      <div>
+        <h3 className="text-xl font-semibold">{plugin.title}</h3>
+        <p className="mt-1 text-muted-foreground/70">{plugin.description}</p>
+      </div>
+
+      <motion.div className="bottom-0 left-0 right-0">
+        <a
+          href={plugin.link}
+          className="flex items-center gap-2"
+          target="_blank"
+        >
+          Learn more <ExternalLinkIcon size={16} />{' '}
+        </a>
+      </motion.div>
+
+      <div
+        className="absolute inset-0 pointer-events-none transition-opacity duration-300 rounded-xl"
+        style={{
+          opacity: isHovered ? 1 : 0,
+          background: `radial-gradient(circle 150px at ${mousePosition.x}px ${mousePosition.y}px, rgba(219, 219, 219, 0.1), transparent 100%)`,
+        }}
+      />
+    </div>
+  );
+}

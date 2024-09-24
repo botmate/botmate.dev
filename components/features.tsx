@@ -4,12 +4,13 @@ import React, { useState, useRef, useEffect } from 'react';
 import {
   Activity,
   BarChart,
+  CodeIcon,
   LucideIcon,
   Palette,
   Plug,
   Settings2,
 } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 type Feature = {
   title: string;
@@ -44,9 +45,9 @@ const features: Feature[] = [
     icon: Palette,
   },
   {
-    title: 'Activity Logs',
-    description: 'View detailed logs of bot activity and interactions.',
-    icon: Activity,
+    title: 'Web IDE (soon)',
+    description: 'Code your bots with a powerful web-based IDE.',
+    icon: CodeIcon,
   },
 ];
 
@@ -83,7 +84,9 @@ const GlowingFeatureCard = ({
   return (
     <motion.div
       ref={cardRef}
-      className={`relative overflow-visible rounded-xl bg-card p-6 group border-2 border-transparent hover:border-primary`}
+      className={`relative z-20 overflow-visible rounded-xl p-6 group hover:border-primary
+          bg-gradient-to-t from-white/5 to-primary/5 backdrop-blur-md
+        `}
       variants={{
         visible: { opacity: 1 },
         hidden: { opacity: 0 },
@@ -127,15 +130,77 @@ const Gradient = () => (
   </>
 );
 
+const wordList = [
+  'powerful',
+  'flexible',
+  'customizable',
+  'intuitive',
+  'awesome',
+];
+
 function Features() {
+  const wordRef = useRef<HTMLSpanElement | null>(null);
+
+  const [wordIndex, setWordIndex] = useState(0);
+  const [wordWidth, setWordWidth] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const newIndex = (wordIndex + 1) % wordList.length;
+      setWordIndex(newIndex);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [wordIndex]);
+
+  const handleUpdate = () => {
+    if (wordRef.current) {
+      setWordWidth(wordRef.current.offsetWidth);
+    }
+  };
+
   return (
-    <div className="container mx-auto py-12 space-y-20 relative px-4 lg:px-0">
+    <div className="container xl:h-screen mx-auto py-12 space-y-20 relative px-4 lg:px-0">
+      <div className="absolute inset-0 flex items-center justify-center">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          variants={{
+            visible: { opacity: 0.5, y: 10 },
+            hidden: { opacity: 0, y: 0 },
+          }}
+          className="w-full h-96 bg-gradient-to-br from-primary/50 to-primary-500/50 rounded-full blur-3xl"
+        />
+      </div>
       <div>
         <h2 className="text-center text-lg font-bold text-neutral-500 uppercase">
           Features
         </h2>
         <h1 className="text-center text-3xl lg:text-4xl font-bold mt-4">
-          Packed with features
+          Packed with{' '}
+          <motion.div
+            className="inline-block"
+            style={{ width: wordWidth }}
+            animate={{ width: wordWidth }}
+            transition={{ duration: 0.5, ease: 'easeInOut' }}
+          >
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={wordList[wordIndex]}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+                className="inline-block text-blue-500"
+                ref={wordRef}
+                onUpdate={handleUpdate}
+              >
+                {wordList[wordIndex]}
+              </motion.span>
+            </AnimatePresence>
+          </motion.div>{' '}
+          features
         </h1>
       </div>
 
