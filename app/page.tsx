@@ -9,7 +9,7 @@ import Header from '#/components/header';
 
 function Home() {
   return (
-    <>
+    <div className="overflow-hidden">
       {/* <Header /> */}
       <Hero />
       <Featutres />
@@ -18,7 +18,7 @@ function Home() {
       <FAQs />
       <GetStarted />
       <Footer />
-    </>
+    </div>
   );
 }
 

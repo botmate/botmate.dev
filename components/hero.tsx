@@ -11,9 +11,6 @@ import {
   TooltipTrigger,
 } from '#/components/ui/tooltip';
 import { FaTelegramPlane } from 'react-icons/fa';
-import { StarIcon } from 'lucide-react';
-import { Button } from './ui/button';
-import Link from 'next/link';
 
 const info = [
   {

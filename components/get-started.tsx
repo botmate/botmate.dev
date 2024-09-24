@@ -1,11 +1,27 @@
+'use client';
 import { CloudIcon, DatabaseIcon } from 'lucide-react';
 import React from 'react';
 import { Button } from './ui/button';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 function GetStarted() {
   return (
-    <div className="py-12 bg-neutral-900/50">
+    <div className="py-12 relative">
+      <div className="absolute inset-0 flex xl:items-center justify-center">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          variants={{
+            visible: { opacity: 0.4, y: 10 },
+            hidden: { opacity: 0, y: 0 },
+          }}
+          className="w-[45rem] h-[70rem] xl:h-[40rem] bg-gradient-to-br from-primary/10 to-primary/40 rounded-full blur-3xl"
+        />
+      </div>
+
       <div className="container space-y-6">
         <div>
           <h1 className="text-4xl lg:text-5xl font-semibold mt-4 lg:leading-snug">
@@ -18,7 +34,7 @@ function GetStarted() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-4">
-          <div className="p-10 bg-background rounded-xl space-y-4">
+          <div className="p-10 rounded-xl space-y-4 bg-black/20 backdrop-blur-xl">
             <DatabaseIcon size={70} />
             <div>
               <h1 className="text-2xl font-bold mt-4">Self-hosted</h1>
@@ -36,7 +52,7 @@ function GetStarted() {
               </Link>
             </div>
           </div>
-          <div className="p-10 bg-background rounded-xl space-y-4">
+          <div className="p-10 rounded-xl space-y-4 bg-black/20 backdrop-blur-xl">
             <CloudIcon size={70} />
             <div>
               <h1 className="text-2xl font-bold mt-4">Cloud (coming soon)</h1>

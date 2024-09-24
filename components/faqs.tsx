@@ -1,4 +1,7 @@
+'use client';
+
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const faqs = [
   {
@@ -30,7 +33,7 @@ const faqs = [
 
 function FAQs() {
   return (
-    <div className="py-12">
+    <div className="py-12 relative">
       <div className="container">
         <div>
           <h1 className="text-4xl lg:text-5xl font-semibold mt-4 lg:leading-snug">

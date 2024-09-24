@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useMouseEffect } from '#/lib/use-mouse-effect';
 
 const items = [
   {
@@ -43,7 +44,7 @@ function Plugins() {
             visible: { opacity: 0.5, y: 10 },
             hidden: { opacity: 0, y: 0 },
           }}
-          className="w-[35rem] h-96 bg-gradient-to-br from-red-500/30 to-primary-500/50 rounded-full blur-3xl"
+          className="w-[35rem] h-96 bg-gradient-to-br from-red-500/30 to-primary/5 rounded-full blur-3xl"
         />
       </div>
       <div className="container py-12 space-y-20 relative">
@@ -76,28 +77,7 @@ function Plugins() {
 export default Plugins;
 
 function Card({ plugin }: { plugin: (typeof items)[0] }) {
-  const [isHovered, setIsHovered] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const cardRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!cardRef.current) return;
-      const rect = cardRef.current.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      setMousePosition({ x, y });
-
-      const isNear =
-        x >= -50 && x <= rect.width + 50 && y >= -50 && y <= rect.height + 50;
-      setIsHovered(isNear);
-    };
-
-    document.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
+  const { cardRef, Render } = useMouseEffect('rgba(248, 113, 113, 0.1)');
 
   return (
     <div
@@ -122,13 +102,7 @@ function Card({ plugin }: { plugin: (typeof items)[0] }) {
         </a>
       </motion.div>
 
-      <div
-        className="absolute inset-0 pointer-events-none transition-opacity duration-300 rounded-xl"
-        style={{
-          opacity: isHovered ? 1 : 0,
-          background: `radial-gradient(circle 150px at ${mousePosition.x}px ${mousePosition.y}px, rgba(219, 219, 219, 0.1), transparent 100%)`,
-        }}
-      />
+      <Render />
     </div>
   );
 }
