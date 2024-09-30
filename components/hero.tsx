@@ -42,7 +42,7 @@ const Gradient = () => (
 );
 
 const heading = `The ultimate bot platform for everyone.`;
-const description = `BotMate lets you manage multiple bots across different platforms from one simple dashboard. Customize with plugins, add widgets, and easily control settings—all in one place.`;
+const description = `BotMate lets you manage multiple bots across different platforms from one simple dashboard. Customize with plugins, workflows, add widgets, and easily control settings—all in one place.`;
 
 const wordList = [
   'powerful',

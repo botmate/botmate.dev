@@ -9,6 +9,7 @@ import {
   Palette,
   Plug,
   Settings2,
+  Workflow,
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -20,14 +21,14 @@ type Feature = {
 
 const features: Feature[] = [
   {
-    title: 'Multiple Platforms',
-    description: 'Manage bots across different platforms from one dashboard.',
-    icon: Activity,
-  },
-  {
     title: 'Plugins',
     description: 'Customize your bots with plugins to to extend functionality.',
     icon: Plug,
+  },
+  {
+    title: 'Workflows',
+    description: 'Design bot logic with event and action-based workflows.',
+    icon: Workflow,
   },
   {
     title: 'Analytics',
@@ -130,13 +131,7 @@ const Gradient = () => (
   </>
 );
 
-const wordList = [
-  'powerful',
-  'flexible',
-  'customizable',
-  'intuitive',
-  'awesome',
-];
+const wordList = ['powerful', 'flexible', 'intuitive', 'awesome'];
 
 function Features() {
   const wordRef = useRef<HTMLSpanElement | null>(null);

@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 function GetStarted() {
   return (
     <div className="py-12 relative">
-      <div className="absolute inset-0 flex xl:items-center justify-center">
+      <div className="absolute inset-0 flex xl:items-end justify-center">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -18,7 +18,7 @@ function GetStarted() {
             visible: { opacity: 0.4, y: 10 },
             hidden: { opacity: 0, y: 0 },
           }}
-          className="w-[45rem] h-[70rem] xl:h-[40rem] bg-gradient-to-br from-primary/10 to-primary/40 rounded-full blur-3xl"
+          className="w-[80%] h-[70rem] xl:h-[20rem] bg-gradient-to-br from-blue-600/30 to-green-500/40 rounded-full blur-3xl"
         />
       </div>
 

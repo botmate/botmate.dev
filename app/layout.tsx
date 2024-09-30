@@ -12,7 +12,7 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: 'BotMate - Simplify Your Bot Management',
   description:
-    'BotMate lets you manage multiple bots across different platforms from one simple dashboard. Customize with plugins, add widgets, and easily control settings—all in one place.',
+    'BotMate lets you manage multiple bots across different platforms from one simple dashboard. Customize with plugins, workflows, add widgets, and easily control settings—all in one place.',
 };
 
 export default function RootLayout({
@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <ThemeProvider attribute="class" defaultTheme="dark">
+        <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark">
           {children}
         </ThemeProvider>
       </body>

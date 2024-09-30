@@ -1,6 +1,8 @@
 'use client';
 
 import React from 'react';
+import { AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const faqs = [
   {
@@ -31,8 +33,22 @@ const faqs = [
 ];
 
 function FAQs() {
+  const [clicked, setClicked] = React.useState<number | null>(null);
   return (
     <div className="py-12 relative">
+      <div className="absolute inset-0 flex items-center justify-center">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          variants={{
+            visible: { opacity: 0.5, y: 10 },
+            hidden: { opacity: 0, y: 0 },
+          }}
+          className="w-[40rem] h-96 bg-gradient-to-br from-primary/50 to-primary-500/50 rounded-full blur-3xl"
+        />
+      </div>
       <div className="container">
         <div>
           <h1 className="text-4xl lg:text-5xl font-semibold mt-4 lg:leading-snug">
@@ -42,18 +58,36 @@ function FAQs() {
             Here are some frequently asked questions about BotMate.
           </p>
         </div>
-        <div>
+        <div className="mt-4">
           {faqs.map((faq, index) => (
-            <div key={index} className="group">
-              <div className="relative group rounded-xl py-8 flex flex-col gap-8">
+            <AnimatePresence key={index}>
+              <div className="relative group rounded-xl py-4 flex flex-col gap-8">
                 <div>
-                  <h2 className="text-xl font-semibold group-hover:text-primary">
+                  <h2
+                    className={
+                      'text-xl font-semibold group-hover:text-primary cursor-pointer' +
+                      (clicked === index ? ' text-primary' : '')
+                    }
+                    onClick={() => {
+                      setClicked(clicked === index ? null : index);
+                    }}
+                  >
                     {faq.question}
                   </h2>
-                  <p className="mt-1 text-muted-foreground/70">{faq.answer}</p>
+                  <motion.div
+                    initial="hidden"
+                    animate={clicked === index ? 'visible' : 'hidden'}
+                    variants={{
+                      visible: { opacity: 1, height: 'auto' },
+                      hidden: { opacity: 0, height: 0 },
+                    }}
+                    className="overflow-hidden mt-2"
+                  >
+                    <p className="text-muted-foreground">{faq.answer}</p>
+                  </motion.div>
                 </div>
               </div>
-            </div>
+            </AnimatePresence>
           ))}
         </div>
       </div>

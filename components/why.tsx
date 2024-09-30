@@ -11,6 +11,7 @@ import {
   LucideIcon,
   MessageCircleIcon,
   Plug2Icon,
+  Workflow,
 } from 'lucide-react';
 
 const why = [
@@ -39,10 +40,10 @@ const why = [
     icon: DatabaseIcon,
   },
   {
-    title: 'Extend Bot Functionality',
+    title: 'Workflows',
     description:
-      "Enhance your bot's capabilities with plugins tailored for specific platforms and tasks.",
-    icon: BlocksIcon,
+      "Design bot logic with event and action-based workflows. It's like IFTTT for bots.",
+    icon: Workflow,
   },
   {
     title: 'Developer-Friendly',
@@ -96,6 +97,17 @@ function Why() {
             hidden: { opacity: 0, y: 0 },
           }}
           className="w-[45rem] h-[70rem] xl:h-[40rem] bg-gradient-to-br from-green-500/30 to-primary/5 rounded-full blur-3xl"
+        />
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          variants={{
+            visible: { opacity: 0.4, y: 10 },
+            hidden: { opacity: 0, y: 0 },
+          }}
+          className="w-[45rem] h-[90rem] xl:h-[40rem] bg-gradient-to-br from-green-500/30 to-primary/5 rounded-full blur-3xl"
         />
       </div>
 
